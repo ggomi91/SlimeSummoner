@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Manager<T> : MonoBehaviour where T : MonoBehaviour
+public class Manager<T> : MonoBehaviour where T : class
 {
     private static T g_instance = null;
     public static T Instance

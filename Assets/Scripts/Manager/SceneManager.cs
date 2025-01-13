@@ -7,6 +7,8 @@ public class SceneManager : Manager<SceneManager>
 {
     protected override void Awake()
     {
+        base.Awake();
+
         UnityEngine.SceneManagement.Scene activeScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
         if (activeScene == null)
             return;

@@ -442,7 +442,7 @@ GameObject:
   - component: {fileID: 9184795326896560196}
   - component: {fileID: 3859791526281979696}
   m_Layer: 0
-  m_Name: Button_Login
+  m_Name: m_Button_Login
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -863,7 +863,7 @@ GameObject:
   - component: {fileID: 4537289159863202320}
   - component: {fileID: 6863069178788130214}
   m_Layer: 0
-  m_Name: InputField_ID
+  m_Name: m_InputField_ID
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1041,7 +1041,7 @@ GameObject:
   - component: {fileID: 1079562054303471387}
   - component: {fileID: 3435742920867536507}
   m_Layer: 0
-  m_Name: InputField_PW
+  m_Name: m_InputField_PW
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
