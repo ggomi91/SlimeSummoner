@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CanvasManager : Manager<CanvasManager>
@@ -5,8 +7,41 @@ public class CanvasManager : Manager<CanvasManager>
     [SerializeField]
     private Canvas MainCanvas = null;
 
+    private List<Panel> m_panels = new List<Panel>();
+
+    protected override void Start()
+    {
+        base.Start();
+
+        SceneManager.Instance.OnSceneUnloadeds += () =>
+        {
+            List<Panel> panels = new List<Panel>(m_panels);
+            m_panels.Clear();
+
+            foreach(Panel panel in panels)
+                Destroy(panel.gameObject);
+        };
+    }
+
     public T Open<T>() where T : Panel
     {
+        {
+            Int32 findIndex = m_panels.FindIndex((Panel _panel) =>
+            {
+                return _panel.GetType() == typeof(T);
+            });
+
+            if (findIndex >= 0)
+            {
+                Panel panel = m_panels[findIndex];
+                m_panels.RemoveAt(findIndex);
+                m_panels.Add(panel);
+
+                panel.transform.SetSiblingIndex(MainCanvas.transform.childCount - 1);
+                return (T)panel;
+            }
+        }
+
         GameObject instance = null;
 
         {
@@ -29,6 +64,7 @@ public class CanvasManager : Manager<CanvasManager>
         if (component == null)
             return null;
 
+        m_panels.Add(component);
         return component;
     }
 }
