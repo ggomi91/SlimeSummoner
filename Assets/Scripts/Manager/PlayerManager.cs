@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerManager : Manager<PlayerManager>
 {
+    GameObject m_background = null;
     GameObject m_slime = null;
 
     protected override void Start()
@@ -18,25 +19,49 @@ public class PlayerManager : Manager<PlayerManager>
         if (gameScene == null)
             return;
 
-        GameObject instance = null;
-
         {
-            GameObject resource = Resources.Load<GameObject>("Spine/Slime/Slime_Water");
-            if (resource == null)
+            GameObject instance = null;
+
+            {
+                GameObject resource = Resources.Load<GameObject>("Spine/Slime/Slime_Water");
+                if (resource == null)
+                    return;
+
+                bool activeSelf = resource.activeSelf;
+                resource.SetActive(true);
+
+                instance = Instantiate(resource, gameScene.transform) as GameObject;
+
+                resource.SetActive(activeSelf);
+            }
+
+            if (instance == null)
                 return;
 
-            bool activeSelf = resource.activeSelf;
-            resource.SetActive(true);
-
-            instance = Instantiate(resource, gameScene.transform) as GameObject;
-
-            resource.SetActive(activeSelf);
+            m_slime = instance;
         }
 
-        if (instance == null)
-            return;
+        {
+            GameObject instance = null;
 
-        m_slime = instance;
+            {
+                GameObject resource = Resources.Load<GameObject>("BG/BG_Forest_Ground");
+                if (resource == null)
+                    return;
+
+                bool activeSelf = resource.activeSelf;
+                resource.SetActive(true);
+
+                instance = Instantiate(resource, gameScene.transform) as GameObject;
+
+                resource.SetActive(activeSelf);
+            }
+
+            if (instance == null)
+                return;
+
+            m_background = instance;
+        }
     }
 
     private void _OnSceneUnloaded()
@@ -45,6 +70,7 @@ public class PlayerManager : Manager<PlayerManager>
         if (gameScene == null)
             return;
 
+        m_background = null;
         m_slime = null;
     }
 }
