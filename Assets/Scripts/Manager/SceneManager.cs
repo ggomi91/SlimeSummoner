@@ -43,7 +43,7 @@ public class SceneManager : Manager<SceneManager>
     }
 
     private List<Action> m_onSceneUnloadeds = new List<Action>();
-    public event Action OnSceneUnloadeds
+    public event Action OnSceneUnloaded
     {
         add
         {
@@ -54,6 +54,19 @@ public class SceneManager : Manager<SceneManager>
         {
             m_onSceneUnloadeds.Remove(value);
         }
+    }
+
+    public Scene GetScene()
+    {
+        return m_scene;
+    }
+
+    public T GetScene<T>() where T : Scene
+    {
+        if (m_scene == null)
+            return null;
+
+        return m_scene as T;
     }
 
     public void Load<T>()

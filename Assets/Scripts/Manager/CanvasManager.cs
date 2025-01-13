@@ -13,7 +13,7 @@ public class CanvasManager : Manager<CanvasManager>
     {
         base.Start();
 
-        SceneManager.Instance.OnSceneUnloadeds += () =>
+        SceneManager.Instance.OnSceneUnloaded += () =>
         {
             List<Panel> panels = new List<Panel>(m_panels);
             m_panels.Clear();
@@ -38,7 +38,7 @@ public class CanvasManager : Manager<CanvasManager>
                 m_panels.Add(panel);
 
                 panel.transform.SetSiblingIndex(MainCanvas.transform.childCount - 1);
-                return (T)panel;
+                return panel as T;
             }
         }
 
