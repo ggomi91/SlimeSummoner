@@ -3,32 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SceneManager : MonoBehaviour
+public class SceneManager : Manager<SceneManager>
 {
-    private static SceneManager g_instance = null;
-    public static SceneManager Instance
+    protected override void Awake()
     {
-        get
-        {
-            if (g_instance == null)
-                return null;
-
-            return g_instance;
-        }
-    }
-
-    private void Awake()
-    {
-        if (g_instance != null)
-        {
-            Destroy(this.gameObject);
-            return;
-        }
-
-        g_instance = this;
-
-        DontDestroyOnLoad(this.gameObject);
-
         UnityEngine.SceneManagement.Scene activeScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
         if (activeScene == null)
             return;
