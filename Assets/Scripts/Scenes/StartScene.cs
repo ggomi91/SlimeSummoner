@@ -1,16 +1,11 @@
 using UnityEngine;
 
-public class StartScene : MonoBehaviour
+public class StartScene : Scene
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
-        Debug.Log("Hello World");
-    }
+        Debug.LogError("StartScene");
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        SceneManager.Instance.Load<LoginScene>();
     }
 }
