@@ -25,6 +25,6 @@ public class LobbyPanel : Panel
 
     private void _OnClick_Button_Battle()
     {
-        Debug.LogError("battle");
+        SceneManager.Instance.Load<GameScene>();
     }
 }
