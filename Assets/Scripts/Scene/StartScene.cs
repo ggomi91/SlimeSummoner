@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class StartScene : Scene
 {
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+        
         SceneManager.Instance.Load<LoginScene>();
     }
 }
