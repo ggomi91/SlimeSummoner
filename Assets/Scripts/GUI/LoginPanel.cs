@@ -22,7 +22,15 @@ public class LoginPanel : Panel
 
     private void _OnClick_Button_Login()
     {
-        Debug.LogErrorFormat("ID : {0}", m_InputField_ID.text);
-        Debug.LogErrorFormat("PW : {0}", m_InputField_PW.text);
+        if (m_InputField_ID.text == string.Empty)
+            return;
+
+        if (m_InputField_PW.text == string.Empty)
+            return;
+
+        AccountManager.Instance.Login(m_InputField_ID.text, m_InputField_PW.text, () =>
+        {
+            SceneManager.Instance.Load<LobbyScene>();
+        });
     }
 }
