@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class PlayerManager : Manager<PlayerManager>
 {
-    GameObject m_background = null;
-    GameObject m_slime = null;
+    Field m_field = null;
+    Slime m_slime = null;
 
     protected override void Start()
     {
@@ -20,29 +20,11 @@ public class PlayerManager : Manager<PlayerManager>
             return;
 
         {
-            GameObject instance = null;
-
-            {
-                GameObject resource = Resources.Load<GameObject>("Spine/Slime/Slime_Water");
-                if (resource == null)
-                    return;
-
-                bool activeSelf = resource.activeSelf;
-                resource.SetActive(true);
-
-                instance = Instantiate(resource, gameScene.transform) as GameObject;
-
-                resource.SetActive(activeSelf);
-            }
-
-            if (instance == null)
+            GameObject field = new GameObject("Field");
+            if (field == null)
                 return;
 
-            m_slime = instance;
-        }
-
-        {
-            GameObject instance = null;
+            field.transform.parent = gameScene.transform;
 
             {
                 GameObject resource = Resources.Load<GameObject>("BG/BG_Forest_Ground");
@@ -52,15 +34,35 @@ public class PlayerManager : Manager<PlayerManager>
                 bool activeSelf = resource.activeSelf;
                 resource.SetActive(true);
 
-                instance = Instantiate(resource, gameScene.transform) as GameObject;
+                Instantiate(resource, gameScene.transform);
 
                 resource.SetActive(activeSelf);
             }
 
-            if (instance == null)
+            m_field = field.AddComponent<Field>();
+        }
+
+        {
+            GameObject player = new GameObject("Player");
+            if (player == null)
                 return;
 
-            m_background = instance;
+            player.transform.parent = gameScene.transform;
+
+            {
+                GameObject resource = Resources.Load<GameObject>("Spine/Slime/Slime_Water");
+                if (resource == null)
+                    return;
+
+                bool activeSelf = resource.activeSelf;
+                resource.SetActive(true);
+
+                Instantiate(resource, player.transform);
+
+                resource.SetActive(activeSelf);
+            }
+
+            m_slime = player.AddComponent<Slime_Water>();
         }
     }
 
@@ -70,7 +72,7 @@ public class PlayerManager : Manager<PlayerManager>
         if (gameScene == null)
             return;
 
-        m_background = null;
+        m_field = null;
         m_slime = null;
     }
 }
